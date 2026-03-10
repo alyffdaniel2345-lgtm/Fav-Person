@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ms">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love Website Arieynaa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        background: #ffd7e8;
+        overflow-x: hidden;
+      }
+
+      .glass {
+        background: rgba(255, 255, 255, 0.46);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+      }
+
+      .hero-glow {
+        background: radial-gradient(
+          circle at top,
+          rgba(255, 255, 255, 0.92),
+          rgba(255, 217, 236, 0.93) 28%,
+          rgba(255, 193, 221, 0.97) 55%,
+          rgba(255, 180, 213, 1) 100%
+        );
+      }
+
+      .float-heart {
+        position: absolute;
+        bottom: -40px;
+        animation: floatUp linear infinite;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translate3d(0, 0, 0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        80% {
+          opacity: 1;
+        }
+        100% {
+          transform: translate3d(12px, -110vh, 0);
+          opacity: 0;
+        }
+      }
+
+      .sparkle {
+        position: absolute;
+        animation: sparklePulse 3s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      @keyframes sparklePulse {
+        0%,
+        100% {
+          opacity: 0.15;
+          transform: scale(0.8) rotate(0deg);
+        }
+        50% {
+          opacity: 0.85;
+          transform: scale(1.15) rotate(20deg);
+        }
+      }
+
+      .rabbit-float {
+        animation: rabbitFloat 2.4s ease-in-out infinite;
+      }
+
+      @keyframes rabbitFloat {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-7px);
+        }
+      }
+
+      .ear-left {
+        animation: earLeft 1.6s ease-in-out infinite;
+        transform-origin: bottom center;
+      }
+
+      .ear-right {
+        animation: earRight 1.6s ease-in-out infinite;
+        transform-origin: bottom center;
+      }
+
+      @keyframes earLeft {
+        0%,
+        100% {
+          transform: rotate(-12deg);
+        }
+        50% {
+          transform: rotate(-6deg);
+        }
+      }
+
+      @keyframes earRight {
+        0%,
+        100% {
+          transform: rotate(12deg);
+        }
+        50% {
+          transform: rotate(6deg);
+        }
+      }
+
+      .blink {
+        animation: blink 2.8s infinite;
+        transform-origin: center;
+      }
+
+      @keyframes blink {
+        0%,
+        8%,
+        16%,
+        100% {
+          transform: scaleY(1);
+        }
+        10%,
+        12% {
+          transform: scaleY(0.12);
+        }
+      }
+
+      .soft-bounce {
+        animation: softBounce 1.35s ease-in-out infinite;
+      }
+
+      @keyframes softBounce {
+        0%,
+        100% {
+          transform: translateY(0);
+          opacity: 0.5;
+        }
+        50% {
+          transform: translateY(-7px);
+          opacity: 1;
+        }
+      }
+
+      .shine-run::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 -70px;
+        width: 64px;
+        transform: rotate(-12deg);
+        background: rgba(255, 255, 255, 0.28);
+        filter: blur(10px);
+        animation: shineMove 4.5s infinite;
+      }
+
+      @keyframes shineMove {
+        0% {
+          transform: translateX(0) rotate(-12deg);
+        }
+        70%,
+        100% {
+          transform: translateX(290px) rotate(-12deg);
+        }
+      }
+
+      .tilt-card:hover {
+        transform: translateY(-8px) scale(1.02);
+      }
+
+      .photo-card:hover {
+        transform: translateY(-10px) rotate(-1deg);
+      }
+
+      .photo-card:nth-child(even):hover {
+        transform: translateY(-10px) rotate(1deg);
+      }
+
+      .gradient-text {
+        background: linear-gradient(90deg, #ec4899, #f43f5e, #d946ef);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hidden-until-ready {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+
+      .hidden-until-ready.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .mobile-tight {
+        line-height: 1.05;
+      }
+
+      @media (max-width: 640px) {
+        .safe-mobile-pad {
+          padding-left: 14px;
+          padding-right: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="relative min-h-screen overflow-hidden text-rose-950">
+      <div class="hero-glow absolute inset-0"></div>
+      <div
+        class="absolute inset-0 opacity-40"
+        style="
+          background: linear-gradient(
+            to bottom,
+            transparent,
+            rgba(255, 255, 255, 0.18),
+            transparent
+          );
+        "
+      ></div>
+      <div
+        class="absolute -top-20 right-[-8rem] h-72 w-72 rounded-full bg-white/35 blur-3xl"
+      ></div>
+      <div
+        class="absolute left-[-6rem] top-[28rem] h-80 w-80 rounded-full bg-fuchsia-200/30 blur-3xl"
+      ></div>
+
+      <div id="hearts-layer" class="pointer-events-none absolute inset-0 overflow-hidden"></div>
+      <div id="sparkles-layer" class="pointer-events-none absolute inset-0 overflow-hidden"></div>
+
+      <div
+        id="introOverlay"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-[radial-gradient(circle_at_top,_#fff6fb,_#ffd4e9_40%,_#ffbfdc_100%)] px-4 transition-opacity duration-500"
+      >
+        <div id="introSparkles" class="pointer-events-none absolute inset-0 overflow-hidden"></div>
+
+        <div
+          class="relative h-[min(700px,88vh)] w-full max-w-[340px] rounded-[2.6rem] border border-white/60 bg-black p-2.5 shadow-[0_40px_120px_rgba(236,72,153,0.35)] sm:rounded-[3.2rem] sm:p-3"
+        >
+          <div
+            class="absolute left-1/2 top-2.5 z-20 h-6 w-28 -translate-x-1/2 rounded-full bg-black sm:top-3 sm:h-7 sm:w-32"
+          ></div>
+
+          <div
+            class="relative h-full overflow-hidden rounded-[2.1rem] bg-[radial-gradient(circle_at_top,_#ffeef7,_#ffd4e8_35%,_#ffc2de_65%,_#ffb3d7_100%)] sm:rounded-[2.6rem]"
+          >
+            <div
+              class="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.95),transparent_40%)]"
+            ></div>
+
+            <div
+              class="relative z-10 flex items-start justify-between px-4 pt-5 text-[12px] font-semibold text-rose-900 sm:px-6 sm:pt-6 sm:text-[13px]"
+            >
+              <span>9:41</span>
+              <span>♡♡♡</span>
+            </div>
+
+            <div class="mt-8 px-2 text-center sm:mt-10">
+              <div
+                class="text-[10px] font-semibold uppercase tracking-[0.28em] text-pink-500 sm:text-sm sm:tracking-[0.45em]"
+              >
+                a r i e y n a
+              </div>
+
+              <div class="relative mt-3 flex h-24 items-center justify-center sm:mt-4 sm:h-28">
+                <div class="rabbit-float relative h-20 w-20 sm:h-24 sm:w-24">
+                  <div
+                    class="ear-left absolute left-3 top-0 h-12 w-7 rounded-full border border-pink-200 bg-white/95"
+                  ></div>
+                  <div
+                    class="ear-right absolute right-3 top-0 h-12 w-7 rounded-full border border-pink-200 bg-white/95"
+                  ></div>
+                  <div
+                    class="absolute left-1/2 top-4 h-16 w-20 -translate-x-1/2 rounded-[45%] border border-pink-200 bg-white/95 shadow-md"
+                  ></div>
+                  <div class="blink absolute left-[29px] top-11 h-2.5 w-2.5 rounded-full bg-rose-800"></div>
+                  <div class="blink absolute right-[29px] top-11 h-2.5 w-2.5 rounded-full bg-rose-800"></div>
+                  <div class="absolute left-1/2 top-[52px] h-2.5 w-3 -translate-x-1/2 rounded-full bg-pink-400"></div>
+                  <div
+                    class="absolute left-1/2 top-[60px] h-3 w-8 -translate-x-1/2 rounded-b-full border-b-2 border-pink-400"
+                  ></div>
+                  <div class="absolute -inset-2 rounded-full bg-white/25 blur-xl"></div>
+                </div>
+              </div>
+
+              <h1 class="gradient-text mt-2 text-3xl font-black sm:text-4xl">For Arieynaa</h1>
+              <p class="mt-3 px-4 text-sm leading-relaxed text-rose-700 sm:px-8 sm:text-base">
+                Ada notif cute untuk Arieyna. Buka cepat sebab ada anak arnab comel nak tunjuk.
+              </p>
+            </div>
+
+            <div
+              id="notifCard"
+              class="mx-2.5 mt-6 rounded-[1.5rem] border border-white/80 bg-white/72 px-3 py-3 shadow-[0_16px_35px_rgba(244,114,182,0.18)] backdrop-blur-2xl transition-all duration-500 sm:mx-3 sm:mt-10 sm:rounded-[1.9rem] sm:px-4 opacity-0 translate-y-4 scale-[0.98]"
+            >
+              <div class="flex items-start gap-3">
+                <div
+                  class="relative mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-[0.9rem] bg-gradient-to-br from-pink-200 via-white to-pink-100 ring-1 ring-white/70 shadow-[0_6px_18px_rgba(244,114,182,0.18)] sm:h-11 sm:w-11 sm:rounded-[1rem]"
+                >
+                  <div class="relative h-7 w-7">
+                    <div class="absolute left-0.5 top-0 h-3.5 w-2.5 rounded-full border border-pink-200 bg-white"></div>
+                    <div class="absolute right-0.5 top-0 h-3.5 w-2.5 rounded-full border border-pink-200 bg-white"></div>
+                    <div
+                      class="absolute left-1/2 top-1.5 h-5 w-6 -translate-x-1/2 rounded-[45%] border border-pink-200 bg-white"
+                    ></div>
+                    <div class="absolute left-[8px] top-[12px] h-1.5 w-1.5 rounded-full bg-rose-700"></div>
+                    <div class="absolute right-[8px] top-[12px] h-1.5 w-1.5 rounded-full bg-rose-700"></div>
+                    <div class="absolute left-1/2 top-[15px] h-2 w-2 -translate-x-1/2 rounded-full bg-pink-400"></div>
+                  </div>
+                </div>
+
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-center justify-between gap-2">
+                    <div class="min-w-0">
+                      <div class="truncate text-[12px] font-bold text-rose-900 sm:text-[13px]">Baby Rabbit</div>
+                      <div class="truncate text-[10px] font-medium text-rose-500 sm:text-[11px]">Messages</div>
+                    </div>
+                    <div class="text-[10px] font-medium text-rose-400 sm:text-[11px]">now</div>
+                  </div>
+                  <p class="mt-1 line-clamp-2 text-[11px] leading-relaxed text-rose-700 sm:text-[12px]">
+                    Anak arnab ni comel... tapi Arieynaa lagi comel seribu kali ♡
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="swipeOverlay"
+              class="absolute inset-x-0 bottom-3 z-20 flex min-h-[96px] cursor-grab flex-col items-center justify-end touch-none active:cursor-grabbing sm:bottom-6"
+              style="user-select:none;-webkit-user-select:none;touch-action:none;"
+            >
+              <div class="soft-bounce flex select-none flex-col items-center leading-none text-rose-500">
+                <span class="text-lg sm:text-xl">⌃</span>
+                <span class="-mt-1.5 text-lg sm:-mt-2 sm:text-xl">⌃</span>
+              </div>
+              <div
+                class="mt-2 px-3 text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-rose-500 sm:text-[11px] sm:tracking-[0.35em]"
+              >
+                Swipe up to open
+              </div>
+              <div class="mt-2.5 h-1.5 w-24 rounded-full bg-rose-300/80 sm:w-20"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <main id="mainContent" class="opacity-100">
+        <section class="relative z-10 mx-auto max-w-6xl px-4 pb-6 pt-8 sm:px-6 sm:pt-10">
+          <div
+            class="glass hidden-until-ready visible relative overflow-hidden rounded-[2rem] p-4 text-center shadow-[0_30px_100px_rgba(236,72,153,0.22)] sm:rounded-[2.6rem] sm:p-8 md:p-12"
+            id="heroCard"
+          >
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.7),transparent_30%)]"></div>
+            <div class="absolute -right-10 -top-16 h-44 w-44 rounded-full bg-pink-300/30 blur-3xl"></div>
+            <div class="absolute -bottom-20 -left-12 h-52 w-52 rounded-full bg-fuchsia-300/25 blur-3xl"></div>
+            <div class="absolute left-4 top-4 text-2xl sm:left-8 sm:top-8 sm:text-3xl md:text-4xl">🎀</div>
+            <div class="absolute right-4 top-4 text-2xl sm:right-10 sm:top-10 sm:text-3xl md:text-4xl">✨</div>
+
+            <div class="relative z-10 mb-4 flex items-center justify-center gap-2 px-2 text-pink-500">
+              <span>✨</span>
+              <p
+                class="text-center text-[10px] font-semibold uppercase tracking-[0.22em] sm:text-xs sm:tracking-[0.4em] md:text-sm"
+              >
+                love page for the prettiest girl alive
+              </p>
+              <span>✨</span>
+            </div>
+
+            <div
+              class="relative z-10 inline-flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full border border-pink-200/70 bg-white/70 px-3 py-2 shadow-lg sm:gap-3 sm:px-4"
+            >
+              <span class="text-lg">🧸</span>
+              <span class="text-sm font-semibold text-rose-600">made with 1000% love for Arieynaa</span>
+              <span class="text-lg">💗</span>
+            </div>
+
+            <h1 class="gradient-text mobile-tight relative z-10 mt-4 text-[2rem] font-black sm:mt-5 sm:text-5xl md:text-7xl lg:text-8xl">
+              Arieynaa<br />My Future Wife
+            </h1>
+
+            <p class="relative z-10 mx-auto mt-4 max-w-3xl text-[15px] leading-relaxed text-rose-900 sm:mt-6 sm:text-lg md:text-xl">
+              Sayang, baby minta maaf atas semua kesilapan baby dulu dan juga sekarang. Baby sedar banyak kekurangan pada diri baby, tapi baby betul-betul nak berubah dan buktikan effort baby untuk sayang. Baby nak jadi lebih matang, lebih jaga hati sayang, dan jadi orang yang lebih baik untuk hubungan kita. Baby sayang sayang sangat. 🤍
+            </p>
+
+            <div class="relative z-10 mt-7 flex flex-wrap items-center justify-center gap-3 sm:mt-8 sm:gap-4">
+              <button
+                id="likeBtn"
+                class="rounded-full bg-gradient-to-r from-pink-500 via-rose-500 to-fuchsia-500 px-5 py-4 text-sm text-white shadow-xl transition-transform hover:scale-105 sm:px-7 sm:py-6 sm:text-base"
+              >
+                ❤ Tekan ni untuk baby tahu seberapa sayangnya sayang kat baby
+              </button>
+              <div id="loveMeter" class="rounded-full border border-pink-200 bg-white/85 px-5 py-3 font-semibold text-rose-700 shadow-lg">
+                Love meter: 143%
+              </div>
+            </div>
+
+            <div class="relative z-10 mt-7 flex flex-wrap justify-center gap-3 text-sm md:text-base">
+              <span class="rounded-full border border-pink-200 bg-pink-100/90 px-4 py-2 text-pink-700 shadow-sm">Pinky princess energy</span>
+              <span class="rounded-full border border-rose-200 bg-rose-100/90 px-4 py-2 text-rose-700 shadow-sm">Full effort romantic mode</span>
+              <span class="rounded-full border border-fuchsia-200 bg-fuchsia-100/90 px-4 py-2 text-fuchsia-700 shadow-sm">Only for Arieynaa</span>
+            </div>
+
+            <div class="relative z-10 mt-7 grid grid-cols-2 gap-2.5 sm:mt-10 sm:gap-4 md:grid-cols-4">
+              <div class="glass rounded-[1.25rem] p-3 shadow-lg sm:rounded-[1.6rem] sm:p-4">
+                <div class="text-3xl">🧁</div>
+                <div class="mt-2 text-sm font-bold uppercase tracking-[0.18em] text-rose-700">Sweetest</div>
+              </div>
+              <div class="glass rounded-[1.25rem] p-3 shadow-lg sm:rounded-[1.6rem] sm:p-4">
+                <div class="text-3xl">🌷</div>
+                <div class="mt-2 text-sm font-bold uppercase tracking-[0.18em] text-rose-700">Softest</div>
+              </div>
+              <div class="glass rounded-[1.25rem] p-3 shadow-lg sm:rounded-[1.6rem] sm:p-4">
+                <div class="text-3xl">🎀</div>
+                <div class="mt-2 text-sm font-bold uppercase tracking-[0.18em] text-rose-700">Cutest</div>
+              </div>
+              <div class="glass rounded-[1.25rem] p-3 shadow-lg sm:rounded-[1.6rem] sm:p-4">
+                <div class="text-3xl">💌</div>
+                <div class="mt-2 text-sm font-bold uppercase tracking-[0.18em] text-rose-700">Loved</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="relative z-10 mx-auto max-w-6xl px-3.5 py-4 sm:px-6 sm:py-6">
+          <div class="grid gap-5 sm:gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+            <div class="glass rounded-[2.2rem] shadow-2xl">
+              <div class="p-8">
+                <div class="mb-4 flex items-center gap-3 text-pink-500">
+                  <span>⭐</span>
+                  <h2 class="text-3xl font-black text-rose-700 md:text-4xl">Reasons why I adore you</h2>
+                </div>
+                <p class="text-lg text-rose-800">Ini adalah antara sebab baby mencintai wanita seperti sayang.</p>
+                <div id="reasonGrid" class="mt-6 grid gap-4 sm:grid-cols-2"></div>
+              </div>
+            </div>
+
+            <div class="grid gap-6">
+              <div class="glass rounded-[2.2rem] shadow-2xl">
+                <div class="flex h-full flex-col p-8">
+                  <div class="mb-4 flex items-center gap-3 text-pink-500">
+                    <span>❤</span>
+                    <h2 class="text-3xl font-black text-rose-700">Love note box</h2>
+                  </div>
+                  <p class="leading-relaxed text-rose-800">
+                    Tekan button bawah ni untuk buka mesej paling manja dan romantic khas untuk Arieyna.
+                  </p>
+
+                  <button
+                    id="letterBtn"
+                    class="shine-run relative mt-6 overflow-hidden rounded-[1.9rem] border border-pink-200 bg-gradient-to-br from-pink-100/95 via-rose-50/95 to-fuchsia-100/95 p-6 text-left shadow-lg"
+                  >
+                    <div class="relative z-10 text-sm font-semibold uppercase tracking-[0.3em] text-pink-500">Tap to open</div>
+                    <div class="relative z-10 mt-2 text-2xl font-black text-rose-700">My heart for Arieynaa 💌</div>
+                    <div id="letterContent" class="relative z-10 max-h-0 overflow-hidden leading-relaxed text-rose-800 transition-all duration-500">
+                      <div class="pt-4">
+                        Sayang terlalu cantik untuk digambarkan dengan ayat biasa. Baby suka cara sayang senyum, cara sayang buat baby rasa dihargai, dan cara sayang hadir dalam hidup baby macam hadiah paling indah. Kalau dunia ni penuh bunga, sayang tetap bunga paling cantik yang baby akan pilih berulang kali.
+                      </div>
+                    </div>
+                  </button>
+
+                  <div class="mt-6 grid grid-cols-3 gap-3 text-center">
+                    <div class="rounded-2xl border border-pink-200 bg-white/70 p-4 shadow-md">
+                      <div class="text-3xl">💘</div>
+                      <div class="mt-1 font-bold text-rose-700">Sweet</div>
+                    </div>
+                    <div class="rounded-2xl border border-pink-200 bg-white/70 p-4 shadow-md">
+                      <div class="text-3xl">🌷</div>
+                      <div class="mt-1 font-bold text-rose-700">Soft</div>
+                    </div>
+                    <div class="rounded-2xl border border-pink-200 bg-white/70 p-4 shadow-md">
+                      <div class="text-3xl">👑</div>
+                      <div class="mt-1 font-bold text-rose-700">Princess</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="glass rounded-[2.2rem] shadow-2xl">
+                <div class="p-8">
+                  <div class="mb-4 flex items-center justify-between gap-3">
+                    <div>
+                      <div class="text-sm font-semibold uppercase tracking-[0.3em] text-pink-500">Forever mode</div>
+                      <h3 class="mt-2 text-3xl font-black text-rose-700">Promise capsule</h3>
+                    </div>
+                    <div class="text-3xl">🫶</div>
+                  </div>
+                  <p class="leading-relaxed text-rose-800">
+                    Princess Arieyna, i love you forever
+                  </p>
+                  <button
+                    id="promiseBtn"
+                    class="mt-5 w-full rounded-[1.6rem] border border-pink-200 bg-white/75 px-5 py-4 text-left shadow-md"
+                  >
+                    <div class="flex items-center justify-between gap-3">
+                      <div>
+                        <div class="text-lg font-black text-rose-700">Open my promises to Arieynaa</div>
+                        <div class="mt-1 text-sm text-rose-500">Press to reveal soft animated vows</div>
+                      </div>
+                      <div class="text-2xl">🌸</div>
+                    </div>
+                  </button>
+                  <div id="promiseList" class="mt-5 hidden grid gap-3"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="relative z-10 mx-auto max-w-6xl px-3.5 py-4 sm:px-6 sm:py-6">
+          <div class="mb-5 flex items-center gap-3 text-pink-600">
+            <span>💓</span>
+            <h2 class="text-3xl font-black md:text-4xl">My Lovely Sayang Album</h2>
+          </div>
+          <div id="photoGrid" class="grid gap-3.5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3"></div>
+        </section>
+
+        <section class="relative z-10 mx-auto max-w-6xl px-4 py-4 sm:px-6">
+          <div class="grid gap-4 sm:gap-6 md:grid-cols-3">
+            <div class="glass rounded-[1.7rem] border border-white/70 p-5 shadow-xl backdrop-blur-2xl sm:rounded-[2rem] sm:p-6">
+              <div class="text-3xl">🐇</div>
+              <div class="mt-4 text-xs uppercase tracking-[0.22em] text-pink-500 sm:text-sm sm:tracking-[0.28em]">Cute moments</div>
+              <div class="mt-2 text-3xl font-black text-rose-700 sm:text-4xl">∞</div>
+            </div>
+            <div class="glass rounded-[1.7rem] border border-white/70 p-5 shadow-xl backdrop-blur-2xl sm:rounded-[2rem] sm:p-6">
+              <div class="text-3xl">💓</div>
+              <div class="mt-4 text-xs uppercase tracking-[0.22em] text-pink-500 sm:text-sm sm:tracking-[0.28em]">Love energy</div>
+              <div id="loveEnergyStat" class="mt-2 text-3xl font-black text-rose-700 sm:text-4xl">143%</div>
+            </div>
+            <div class="glass rounded-[1.7rem] border border-white/70 p-5 shadow-xl backdrop-blur-2xl sm:rounded-[2rem] sm:p-6">
+              <div class="text-3xl">👑</div>
+              <div class="mt-4 text-xs uppercase tracking-[0.22em] text-pink-500 sm:text-sm sm:tracking-[0.28em]">Princess level</div>
+              <div class="mt-2 text-3xl font-black text-rose-700 sm:text-4xl">MAX</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="relative z-10 mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-8">
+          <div
+            class="relative overflow-hidden rounded-[2rem] bg-gradient-to-r from-pink-500 via-rose-500 to-fuchsia-500 p-5 text-white shadow-[0_24px_80px_rgba(244,114,182,0.4)] sm:rounded-[2.4rem] sm:p-8 md:p-10"
+          >
+            <div class="absolute inset-y-0 -left-10 w-40 rotate-12 bg-white/20 blur-2xl"></div>
+            <div class="absolute right-8 top-6 text-5xl opacity-70">💖</div>
+            <div class="relative z-10 mb-4 flex flex-wrap items-center gap-3">
+              <span class="text-3xl">❤</span>
+              <h2 class="text-2xl font-black sm:text-3xl md:text-4xl">Final confession</h2>
+            </div>
+            <p class="relative z-10 max-w-3xl text-base leading-relaxed sm:text-lg md:text-xl">
+              Dalam banyak-banyak manusia dalam dunia ni, Arieynaa tetap yang paling baby suka. Bukan sebab sayang cantik saja, tapi sebab sayang ada cara tersendiri untuk buat hati baby jatuh cinta lagi dan lagi. Kalau baby boleh ulang seribu kali, baby tetap akan pilih sayang.
+            </p>
+            <div class="relative z-10 mt-6 flex flex-wrap gap-2.5 sm:gap-3">
+              <div class="rounded-full bg-white/20 px-3.5 py-2 text-sm sm:px-4 sm:text-base">100% for you</div>
+              <div class="rounded-full bg-white/20 px-3.5 py-2 text-sm sm:px-4 sm:text-base">pinky theme</div>
+              <div class="rounded-full bg-white/20 px-3.5 py-2 text-sm sm:px-4 sm:text-base">forever favorite girl</div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div
+      id="photoModal"
+      class="fixed inset-0 z-[60] hidden items-center justify-center bg-rose-950/35 px-4 backdrop-blur-md"
+    >
+      <div
+        class="w-full max-w-md rounded-[2.2rem] border border-white/70 bg-white/75 p-5 shadow-[0_30px_100px_rgba(236,72,153,0.25)] backdrop-blur-2xl"
+      >
+        <div
+          class="relative aspect-[4/5] overflow-hidden rounded-[1.8rem] border-2 border-white/60 bg-pink-100 text-center"
+        >
+          <img id="modalImage" src="" alt="" class="h-full w-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-rose-900/35 via-transparent to-white/10"></div>
+          <div class="absolute inset-x-0 bottom-0 z-10 p-4 text-left">
+            <div id="modalTitle" class="text-3xl font-black text-white drop-shadow">My Sunshine</div>
+            <p id="modalNote" class="mt-3 leading-relaxed text-white/95 drop-shadow"></p>
+          </div>
+        </div>
+        <button
+          id="closeModalBtn"
+          class="mt-4 w-full rounded-full bg-gradient-to-r from-pink-500 via-rose-500 to-fuchsia-500 px-5 py-3 font-bold text-white shadow-lg"
+        >
+          Tutup cute preview
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const photos = [
+        {
+          title: "My Sunshine",
+          note: "Arieyna, my sunshine sebab bila ada sayang, hari baby selalu rasa lebih cerah.",
+          sticker: "Manies",
+          image: "images/arie1.jpg",
+        },
+        {
+          title: "Sweet Smile",
+          note: "Senyuman sayang yang buat dunia terus rasa lembut.",
+          sticker: "Peachy",
+          image: "images/arie2.jpg",
+        },
+        {
+          title: "Pretty Eyes",
+          note: "Tatapan mata sayang yang buat hati terus tak tenang.",
+          sticker: "Shiny",
+          image: "images/arie3.jpg",
+        },
+        {
+          title: "Baby Princess",
+          note: "The princess of Arieynaaa.",
+          sticker: "Lovely",
+          image: "images/arie4.jpg",
+        },
+        {
+          title: "Cutie Person",
+          note: "Cutie dan manja, itulah arieyna",
+          sticker: "Princess",
+          image: "images/arie5.jpg",
+        },
+        {
+          title: "Forever Mine",
+          note: "Penutup paling romantic untuk perempuan paling cantik.",
+          sticker: "Angel",
+          image: "images/arie6.jpg",
+        },
+      ];
+
+      const reasons = [
+        "Sayang cantik sangat sampai susah baby nak berhenti tengok.",
+        "Sayang buat hati baby rasa tenang walaupun hari tengah serabut.",
+        "Senyuman sayang boleh ubah hari biasa jadi hari paling indah.",
+        "Dengan sayang, semua benda rasa lebih selesa dan bermakna.",
+      ];
+
+      const promiseList = [
+        "Baby akan selalu pilih sayang, walau dunia berubah macam mana pun.",
+        "Baby akan jaga hati sayang sebaik yang baby mampu, setiap hari.",
+        "Baby akan sentiasa buat sayang rasa dihargai, disayangi, dan dipilih.",
+        "Baby akan simpan semua moment dengan sayang macam harta paling indah.",
+      ];
+
+      let loveCount = 143;
+      let unlocked = false;
+      let startY = 0;
+      let currentY = 0;
+      let dragging = false;
+
+      function makeSparkles(containerId) {
+        const el = document.getElementById(containerId);
+        for (let i = 0; i < 16; i += 1) {
+          const s = document.createElement("div");
+          s.className = "sparkle text-white/80";
+          s.textContent = "✦";
+          s.style.top = `${8 + (i % 8) * 11}%`;
+          s.style.left = `${5 + (i * 6) % 92}%`;
+          s.style.animationDelay = `${i * 0.25}s`;
+          el.appendChild(s);
+        }
+      }
+
+      function makeHearts() {
+        const el = document.getElementById("hearts-layer");
+        for (let i = 0; i < 18; i += 1) {
+          const h = document.createElement("div");
+          h.className = "float-heart";
+          h.textContent = "💖";
+          h.style.left = `${4 + i * 5}%`;
+          h.style.animationDuration = `${8 + (i % 4)}s`;
+          h.style.animationDelay = `${i * 0.18}s`;
+          el.appendChild(h);
+        }
+      }
+
+      function makeMainSparkles() {
+        const el = document.getElementById("sparkles-layer");
+        for (let i = 0; i < 16; i += 1) {
+          const s = document.createElement("div");
+          s.className = "sparkle text-white/70 text-lg";
+          s.textContent = "✦";
+          s.style.top = `${8 + (i % 8) * 11}%`;
+          s.style.left = `${5 + (i * 6) % 92}%`;
+          s.style.animationDelay = `${i * 0.25}s`;
+          el.appendChild(s);
+        }
+      }
+
+      function renderReasons() {
+        const wrap = document.getElementById("reasonGrid");
+        reasons.forEach((reason, index) => {
+          const btn = document.createElement("button");
+          btn.className =
+            "tilt-card relative overflow-hidden rounded-[1.8rem] border border-pink-200 bg-pink-50/75 p-5 text-left text-rose-800 shadow-md transition-all duration-300";
+          btn.innerHTML = `
+            <div class="absolute -right-3 -top-3 text-3xl opacity-20">💖</div>
+            <div class="text-lg font-bold">Reason ${index + 1}</div>
+            <div class="mt-2 leading-relaxed">${reason}</div>
+          `;
+          btn.addEventListener("click", () => {
+            [...wrap.children].forEach((child) => {
+              child.className =
+                "tilt-card relative overflow-hidden rounded-[1.8rem] border border-pink-200 bg-pink-50/75 p-5 text-left text-rose-800 shadow-md transition-all duration-300";
+            });
+            btn.className =
+              "tilt-card relative overflow-hidden rounded-[1.8rem] border border-transparent bg-gradient-to-r from-pink-500 to-rose-500 p-5 text-left text-white shadow-md transition-all duration-300";
+          });
+          wrap.appendChild(btn);
+        });
+      }
+
+      function renderPromises() {
+        const wrap = document.getElementById("promiseList");
+        promiseList.forEach((promise) => {
+          const item = document.createElement("div");
+          item.className =
+            "rounded-[1.4rem] border border-pink-200 bg-gradient-to-r from-pink-50 to-white px-4 py-4 shadow-sm";
+          item.innerHTML = `
+            <div class="flex items-start gap-3">
+              <div class="mt-1 text-lg">💞</div>
+              <p class="leading-relaxed text-rose-700">${promise}</p>
+            </div>
+          `;
+          wrap.appendChild(item);
+        });
+      }
+
+      function renderPhotos() {
+        const grid = document.getElementById("photoGrid");
+        photos.forEach((photo) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "photo-card text-left transition duration-300";
+          btn.innerHTML = `
+            <div class="glass overflow-hidden rounded-[2.2rem] shadow-2xl">
+              <div class="p-4">
+                <div class="relative aspect-[4/5] overflow-hidden rounded-[1.7rem] border-2 border-white/60 bg-pink-100 text-center">
+                  <img
+                    src="${photo.image}"
+                    alt="${photo.title}"
+                    class="h-full w-full object-cover"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                  />
+                  <div class="hidden absolute inset-0 items-center justify-center bg-gradient-to-b from-pink-200 via-rose-100 to-fuchsia-200 text-6xl">💖</div>
+                  <div class="absolute inset-0 bg-gradient-to-t from-rose-900/35 via-transparent to-white/10"></div>
+                  <div class="absolute left-3 top-3 rounded-full bg-white/80 px-3 py-1 text-[10px] font-black uppercase tracking-[0.25em] text-pink-500 shadow-sm">
+                    ${photo.sticker}
+                  </div>
+                  <div class="absolute inset-x-0 bottom-0 p-4 text-left">
+                    <p class="text-2xl font-black text-white drop-shadow">${photo.title}</p>
+                    <p class="mt-2 text-sm leading-relaxed text-white/95 drop-shadow">${photo.note}</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between gap-3 px-2 pt-4">
+                  <div>
+                    <h3 class="text-2xl font-black text-pink-600">${photo.title}</h3>
+                    <p class="mt-1 text-rose-700">Frame Special For Princess Arieynaa</p>
+                  </div>
+                  <div class="text-2xl">🎀</div>
+                </div>
+              </div>
+            </div>
+          `;
+          btn.addEventListener("click", () => openPhoto(photo));
+          grid.appendChild(btn);
+        });
+      }
+
+      function openPhoto(photo) {
+        const modal = document.getElementById("photoModal");
+        const modalImage = document.getElementById("modalImage");
+        modalImage.src = photo.image;
+        modalImage.alt = photo.title;
+        document.getElementById("modalTitle").textContent = photo.title;
+        document.getElementById("modalNote").textContent = photo.note;
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+
+      function closePhoto() {
+        const modal = document.getElementById("photoModal");
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+
+      function unlockIntro() {
+        if (unlocked) return;
+        unlocked = true;
+
+        const swipe = document.getElementById("swipeOverlay");
+        swipe.style.transform = "translateY(-170px)";
+        swipe.style.opacity = "0";
+        swipe.style.transition =
+          "transform .36s cubic-bezier(.22,1,.36,1), opacity .36s";
+
+        setTimeout(() => {
+          const intro = document.getElementById("introOverlay");
+          intro.style.opacity = "0";
+          setTimeout(() => {
+            intro.style.display = "none";
+          }, 500);
+        }, 120);
+      }
+
+      function setupSwipe() {
+        const swipe = document.getElementById("swipeOverlay");
+
+        const pointerDown = (y) => {
+          startY = y;
+          currentY = 0;
+          dragging = true;
+          swipe.style.transition = "none";
+        };
+
+        const pointerMove = (y) => {
+          if (!dragging) return;
+          const diff = Math.min(0, y - startY);
+          currentY = Math.max(diff, -170);
+          swipe.style.transform = `translateY(${currentY}px)`;
+        };
+
+        const pointerUp = () => {
+          if (!dragging) return;
+          dragging = false;
+
+          if (currentY < -45) {
+            unlockIntro();
+            return;
+          }
+
+          swipe.style.transition = "transform .28s ease";
+          swipe.style.transform = "translateY(0)";
+        };
+
+        swipe.addEventListener(
+          "touchstart",
+          (e) => pointerDown(e.touches[0].clientY),
+          { passive: true }
+        );
+
+        swipe.addEventListener(
+          "touchmove",
+          (e) => {
+            pointerMove(e.touches[0].clientY);
+            if (Math.abs(currentY) > 8) e.preventDefault();
+          },
+          { passive: false }
+        );
+
+        swipe.addEventListener("touchend", pointerUp);
+
+        swipe.addEventListener("mousedown", (e) => pointerDown(e.clientY));
+        window.addEventListener("mousemove", (e) => pointerMove(e.clientY));
+        window.addEventListener("mouseup", pointerUp);
+
+        swipe.addEventListener("click", unlockIntro);
+      }
+
+      function setupInteractions() {
+        const notif = document.getElementById("notifCard");
+        setTimeout(() => {
+          notif.classList.remove("opacity-0", "translate-y-4", "scale-[0.98]");
+        }, 900);
+
+        document.getElementById("likeBtn").addEventListener("click", () => {
+          loveCount += 1;
+          document.getElementById("loveMeter").textContent = `Love meter: ${loveCount}%`;
+          document.getElementById("loveEnergyStat").textContent = `${loveCount}%`;
+        });
+
+        document.getElementById("letterBtn").addEventListener("click", () => {
+          const content = document.getElementById("letterContent");
+          if (content.style.maxHeight && content.style.maxHeight !== "0px") {
+            content.style.maxHeight = "0px";
+          } else {
+            content.style.maxHeight = `${content.scrollHeight}px`;
+          }
+        });
+
+        document.getElementById("promiseBtn").addEventListener("click", () => {
+          document.getElementById("promiseList").classList.toggle("hidden");
+        });
+
+        document.getElementById("closeModalBtn").addEventListener("click", closePhoto);
+
+        document.getElementById("photoModal").addEventListener("click", (e) => {
+          if (e.target.id === "photoModal") closePhoto();
+        });
+      }
+
+      makeSparkles("introSparkles");
+      makeHearts();
+      makeMainSparkles();
+      renderReasons();
+      renderPromises();
+      renderPhotos();
+      setupInteractions();
+      setupSwipe();
+    </script>
+  </body>
+</html>
